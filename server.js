@@ -5,6 +5,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const inventory = require('./routes/inventory');
+const types = require('./routes/types');
 const connection = require('./connection');
 
 const PORT = process.env.PORT || 8080;
@@ -22,6 +23,7 @@ app.use(cors());
 
 //routes
 app.use('/api/inventory', inventory);
+app.use('/api/types', types);
 
 
 app.listen(PORT, () => {

@@ -5,11 +5,12 @@ import AddNewProduct from './../AddNewProduct/AddNewProduct';
 import './App.css';
 
 
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentPage: 'searchProducts'
+      currentPage: 'addNewProduct'
     }
     this.changePage = this.changePage.bind(this);
   }

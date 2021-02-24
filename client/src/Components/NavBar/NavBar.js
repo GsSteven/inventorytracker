@@ -55,8 +55,8 @@ class NavBar extends React.Component {
                     <div className="mobile3"></div>
                 </div>
                 <ul className="navList">
-                    <li>Add New Product</li>
-                    <li>Search Products</li>
+                    <li id="addNewProduct" onClick={this.props.changePage}>Add New Product</li>
+                    <li id="searchProducts" onClick={this.props.changePage}>Search Products</li>
                 </ul>
             </div>
         );

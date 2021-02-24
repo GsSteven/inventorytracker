@@ -10,6 +10,7 @@ class Product extends React.Component {
                 <td>{this.props.type}</td>
                 <td>{this.props.name}</td>
                 <td>{this.props.quantity}</td>
+                <td>{this.props.location}</td>
                 <td>${this.props.price}</td>
                 <td>{this.props.notes}</td>
             </tr>

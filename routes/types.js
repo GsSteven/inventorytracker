@@ -11,4 +11,14 @@ router.get('', (req, res) => {
         });
 });
 
+router.post('', (req, res) => {
+    const newType = req.body.data;
+    connection.query(`INSERT INTO product_type (type) VALUES ('${newType}')`
+        , (err, sqlres) => {
+            if (err) throw err;
+            res.status(200).send();
+        });
+});
+
+
 module.exports = router;

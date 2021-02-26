@@ -30,37 +30,41 @@ class Product extends React.Component {
 
     editProduct() {
         const currentProduct = document.getElementById(this.props.id);
+        //check if edit element already open(exists) to prevent two open edits of same product
+        if (document.getElementById(`${this.props.id}Edit`)) {
 
-        //create row and insert after element chosen to edit
-        const newRow = document.createElement('tr');
-        newRow.className = "productRow";
-        newRow.id = `${this.props.id}Edit`
-        currentProduct.parentNode.insertBefore(newRow, currentProduct.nextSibling);
+        } else {
+            //create row and insert after element chosen to edit
+            const newRow = document.createElement('tr');
+            newRow.className = "productRow";
+            newRow.id = `${this.props.id}Edit`
+            currentProduct.parentNode.insertBefore(newRow, currentProduct.nextSibling);
 
-        //render data into new row
-        ReactDOM.render(
-            <>
-                <td>
-                    <img className="confirmDenyButtons" src={checkButton} alt="change" onClick={this.submitChange} />
-                    <br />
-                    {this.props.id}
-                    <br />
-                    <img className="confirmDenyButtons" src={xButton} alt="dontChange" onClick={this.cancelChange} />
+            //render data into new row
+            ReactDOM.render(
+                <>
+                    <td>
+                        <img className="confirmDenyButtons" src={checkButton} alt="change" onClick={this.submitChange} />
+                        <br />
+                        {this.props.id}
+                        <br />
+                        <img className="confirmDenyButtons" src={xButton} alt="dontChange" onClick={this.cancelChange} />
 
-                </td>
-                <td><select name="typeEdit" id="typeEdit" defaultValue={this.state.type} onChange={this.handleChange}>
-                    {this.props.types}
-                    <option value=""></option>
-                </select>
-                </td>
-                <td><input type="text" defaultValue={this.state.name || undefined} name="nameEdit" id="nameEdit" onChange={this.handleChange} /></td>
-                <td><input type="number" defaultValue={this.state.quantity || undefined} name="quantityEdit" id="quantityEdit" onChange={this.handleChange} /></td>
-                <td><input type="text" defaultValue={this.state.location || undefined} name="locationEdit" id="locationEdit" onChange={this.handleChange} /></td>
-                <td><input type="number" defaultValue={this.state.price || undefined} name="priceEdit" id="priceEdit" onChange={this.handleChange} /></td>
-                <td><textarea defaultValue={this.state.notes || undefined} name="notesEdit" id="notesEdit" rows="2" cols="30" maxLength="400" onChange={this.handleChange} /></td>
-            </>,
-            document.getElementById(`${this.props.id}Edit`)
-        );
+                    </td>
+                    <td><select name="typeEdit" id="typeEdit" defaultValue={this.state.type} onChange={this.handleChange}>
+                        {this.props.types}
+                        <option value=""></option>
+                    </select>
+                    </td>
+                    <td><input type="text" defaultValue={this.state.name || undefined} name="nameEdit" id="nameEdit" onChange={this.handleChange} /></td>
+                    <td><input type="number" defaultValue={this.state.quantity || undefined} name="quantityEdit" id="quantityEdit" onChange={this.handleChange} /></td>
+                    <td><input type="text" defaultValue={this.state.location || undefined} name="locationEdit" id="locationEdit" onChange={this.handleChange} /></td>
+                    <td><input type="number" defaultValue={this.state.price || undefined} name="priceEdit" id="priceEdit" onChange={this.handleChange} /></td>
+                    <td><textarea defaultValue={this.state.notes || undefined} name="notesEdit" id="notesEdit" rows="2" cols="30" maxLength="400" onChange={this.handleChange} /></td>
+                </>,
+                document.getElementById(`${this.props.id}Edit`)
+            );
+        }
     }
 
     handleChange(e) {

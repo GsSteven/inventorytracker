@@ -5,6 +5,8 @@ import SearchProduct from './../SearchProduct/SearchProduct';
 import AddNewProduct from './../AddNewProduct/AddNewProduct';
 import './App.css';
 
+//img imports
+import logo from './../../images/inventoryTrackerLogo.png';
 
 
 class App extends React.Component {
@@ -39,7 +41,7 @@ class App extends React.Component {
       case 'searchProducts':
         return <SearchProduct types={this.state.types} />
       case 'addNewProduct':
-        return <AddNewProduct types={this.state.types} />
+        return <AddNewProduct types={this.state.types} refreshTypes={this.getTypes} />
       default:
         console.error('Error at displayPage switch');
     }
@@ -53,7 +55,7 @@ class App extends React.Component {
     return (
       <div>
         <header>
-          logo goes here
+          <img src={logo} alt="logo" id="headerLogo" />
         </header>
         <NavBar changePage={this.changePage} />
         <div>

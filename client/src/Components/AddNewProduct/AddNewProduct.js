@@ -43,6 +43,7 @@ class AddNewProduct extends React.Component {
                 .then(response => {
                     if (response.status === 200) {
                         payLoad.type = this.state.newType;
+                        this.props.refreshTypes();
                     }
                 });
         }

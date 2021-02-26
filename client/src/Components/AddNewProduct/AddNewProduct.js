@@ -16,7 +16,6 @@ class AddNewProduct extends React.Component {
             displaySuccess: false
         }
         this.handleChange = this.handleChange.bind(this);
-        this.getTypes = this.getTypes.bind(this);
         this.submitProduct = this.submitProduct.bind(this);
         this.displayError = this.displayError.bind(this);
         this.displaySuccess = this.displaySuccess.bind(this);
@@ -26,17 +25,6 @@ class AddNewProduct extends React.Component {
         const id = e.target.id;
         const value = e.target.value;
         this.setState({ [id]: value });
-    }
-
-    async getTypes() {
-        const types = await axios.get('/api/types')
-            .then(response => {
-                return response.data
-            });
-        const typeElements = types.map(type => {
-            return <option value={type.type} key={type.id + type.type}>{type.type}</option>;
-        });
-        this.setState({ types: typeElements });
     }
 
     async submitProduct() {
@@ -117,10 +105,6 @@ class AddNewProduct extends React.Component {
         this.setState({ displaySuccess: true });
     }
 
-    componentDidMount() {
-        this.getTypes();
-    }
-
     render() {
 
         return (
@@ -129,10 +113,10 @@ class AddNewProduct extends React.Component {
                     <label htmlFor="name">name</label>
                     <input type="text" name="name" id="name" required onChange={this.handleChange} />
                     <label htmlFor="type">type</label>
-                    <select name="type" id="type" onChange={this.handleChange}>
-                        <option value=""></option>
-                        {this.state.types}
+                    <select name="type" id="type" defaultValue="" onChange={this.handleChange}>
                         <option value="newType">New type +</option>
+                        {this.props.types}
+                        <option value=""></option>
                     </select>
                     {this.state.type === "newType" &&
                         <div id="newTypeDiv">
@@ -148,7 +132,7 @@ class AddNewProduct extends React.Component {
                     <label htmlFor="price">price</label>
                     <input type="number" step="0.01" name="price" id="price" onChange={this.handleChange} />
                     <label htmlFor="notes">notes</label>
-                    <textarea step="0.01" name="notes" id="notes" placeholder="Add notes here (400 character max)" cols="50" rows="5" maxLength="400" onChange={this.handleChange} />
+                    <textarea name="notes" id="notes" placeholder="Add notes here (400 character max)" cols="50" rows="5" maxLength="400" onChange={this.handleChange} />
                     <button type="button" onClick={this.submitProduct}>Submit</button>
                 </div>
                 {this.state.displaySuccess &&

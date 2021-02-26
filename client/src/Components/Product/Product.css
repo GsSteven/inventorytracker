@@ -1,5 +1,6 @@
 
-.productRow td {
+.productRow td,
+.productRow input {
     text-align: center;
 }
 
@@ -13,5 +14,18 @@
 
 .editProduct {
     height: 13px;
+    cursor: pointer;
+}
+
+.confirmDenyButtons {
+    height: 15px;
+    border-radius: 100%;
+    float: left;
+    border: 1px solid white;
+    transition: .2s linear;
+}
+
+.confirmDenyButtons:hover {
+    border: 1px solid black;
     cursor: pointer;
 }

@@ -82,6 +82,7 @@ class SearchProduct extends React.Component {
                 location={product.location}
                 price={product.price}
                 notes={product.notes}
+                types={this.props.types}
                 key={product.id + product.name}
             />
         });

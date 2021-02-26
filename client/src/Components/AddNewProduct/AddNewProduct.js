@@ -11,12 +11,15 @@ class AddNewProduct extends React.Component {
             quantity: null,
             location: null,
             price: null,
-            notes: ''
+            notes: '',
+            displayError: false,
+            displaySuccess: false
         }
         this.handleChange = this.handleChange.bind(this);
         this.getTypes = this.getTypes.bind(this);
         this.submitProduct = this.submitProduct.bind(this);
         this.displayError = this.displayError.bind(this);
+        this.displaySuccess = this.displaySuccess.bind(this);
     }
 
     handleChange(e) {
@@ -56,10 +59,22 @@ class AddNewProduct extends React.Component {
                 });
         }
 
+        //set state name for success or error messages
+        this.setState({ submittedName: this.state.name });
+
+
         //submit payLoad then reset state and input areas
         axios.post('/api/inventory', { data: payLoad })
             .then(response => {
+                console.log(response);
                 if (response.status === 200) {
+
+                    this.setState({
+                        displayError: false
+                    });
+
+                    this.displaySuccess();
+
                     this.setState({
                         name: '',
                         type: null,
@@ -68,6 +83,7 @@ class AddNewProduct extends React.Component {
                         price: null,
                         notes: ''
                     });
+
                     const nameElement = document.getElementById('name');
                     const typeElement = document.getElementById('type');
                     const quantityElement = document.getElementById('quantity');
@@ -85,19 +101,20 @@ class AddNewProduct extends React.Component {
                     if (payLoad.newType) {
                         newTypeElement.value = '';
                     }
-                } else {
-                    this.displayError();
+
                 }
+            }, error => {
+                this.setState({ displaySuccess: false });
+                this.displayError();
             });
     }
 
     displayError() {
-        console.log('so triggered');
-        const form = document.getElementById('newProductForm');
-        const errorP = document.createElement('p');
-        errorP.innerHTML = "An error has occured and the product was not submitted";
-        errorP.className = "errorMessage";
-        form.appendChild(errorP)
+        this.setState({ displayError: true });
+    }
+
+    displaySuccess() {
+        this.setState({ displaySuccess: true });
     }
 
     componentDidMount() {
@@ -134,6 +151,12 @@ class AddNewProduct extends React.Component {
                     <textarea step="0.01" name="notes" id="notes" placeholder="Add notes here (400 character max)" cols="50" rows="5" maxLength="400" onChange={this.handleChange} />
                     <button type="button" onClick={this.submitProduct}>Submit</button>
                 </div>
+                {this.state.displaySuccess &&
+                    <h3 id="successMessage"><u>{this.state.submittedName}</u> has been added</h3>
+                }
+                {this.state.displayError &&
+                    <h3 id="errorMessage">Something went wrong and <u>{this.state.submittedName}</u> was not added.</h3>
+                }
             </div>
         );
     }

@@ -51,6 +51,7 @@ router.post('', (req, res) => {
 router.get('/orderBy', (req, res) => {
     const orderQuery = req.query.orderBy;
     const searchQuery = req.query.searchQuery;
+    //if there is a search query get products LIKE query
     if (searchQuery) {
         connection.query(`SELECT p.id, pt.type AS "type", p.name, p.quantity, p.price, p.location, p.notes  FROM products p JOIN product_type pt ON pt.id = p.type_id WHERE name LIKE "%${searchQuery}%" ORDER BY ${orderQuery}`
             , (err, sqlres) => {
@@ -58,6 +59,7 @@ router.get('/orderBy', (req, res) => {
                 res.status(200).send(sqlres);
             });
     } else {
+        //order all products by order query
         connection.query(`SELECT p.id, pt.type AS "type", p.name, p.quantity, p.price, p.location, p.notes  FROM products p JOIN product_type pt ON pt.id = p.type_id ORDER BY ${orderQuery}`
             , (err, sqlres) => {
                 if (err) throw err;

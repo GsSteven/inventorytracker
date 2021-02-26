@@ -23,6 +23,7 @@ class Product extends React.Component {
         }
         this.editProduct = this.editProduct.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.cancelChange = this.cancelChange.bind(this);
         this.submitChange = this.submitChange.bind(this);
     }
 
@@ -65,20 +66,16 @@ class Product extends React.Component {
     handleChange(e) {
         const eventValue = e.target.value;
         const eventName = e.target.name.replace('Edit', '');
-        console.log(eventName);
-        console.log(eventValue);
-        console.log(this.state);
         this.setState({ [eventName]: eventValue });
     }
 
     cancelChange() {
-
+        const openedEdit = document.getElementById(`${this.props.id}Edit`);
+        openedEdit.remove();
     }
 
     submitChange() {
-        const payLoad = {
-            id: this.state.id
-        };
+        const payLoad = {};
 
         //if current state has been changed from prop add to payLoad
         for (const param in this.state) {
@@ -86,7 +83,19 @@ class Product extends React.Component {
                 payLoad[param] = this.state[param];
             }
         }
-        console.log(payLoad);
+
+        axios.put('/api/inventory', { data: { id: this.props.id, toChange: payLoad } })
+            .then(response => {
+                if (response.status === 200) {
+                    //close edit
+                    const openedEdit = document.getElementById(`${this.props.id}Edit`);
+                    openedEdit.remove();
+                    this.props.refresh();
+                }
+            },
+                error => {
+                    console.error(error);
+                });
     }
 
     render() {

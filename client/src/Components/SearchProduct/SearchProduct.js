@@ -83,6 +83,7 @@ class SearchProduct extends React.Component {
                 price={product.price}
                 notes={product.notes}
                 types={this.props.types}
+                refresh={this.getProducts}
                 key={product.id + product.name}
             />
         });

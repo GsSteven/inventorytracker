@@ -44,7 +44,30 @@ router.post('', (req, res) => {
     }
 });
 
-
+router.put('', (req, res) => {
+    const data = req.body.data;
+    const idToUpdate = data.id;
+    const updates = data.toChange;
+    let typeId;
+    for (const update in updates) {
+        //if data is 'type' get type id from product_type table
+        if (update === 'type') {
+            connection.query(`SELECT id FROM product_type WHERE type = '${updates[update]}'`
+                , (err, sqlres) => {
+                    if (err) throw err;
+                    typeId = sqlres[0].id;
+                    connection.query(`UPDATE products SET ${update}_id=${typeId} WHERE id=${idToUpdate}`
+                        , (err, sqlres) => {
+                            if (err) throw err;
+                        });
+                });
+            //else update data by value in products table
+        } else {
+            connection.query(`UPDATE products SET ${update}='${updates[update]}' WHERE id=${idToUpdate}`);
+        }
+    }
+    res.status(200).send();
+});
 
 
 

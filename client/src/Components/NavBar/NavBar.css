@@ -4,6 +4,7 @@
     height: 60px;
     border-top: 2px solid black;
     border-bottom: 2px solid black;
+    z-index: 1;
 }
 
 .navList {
@@ -54,7 +55,6 @@
 
 @media screen and (max-width: 1000px) {
     #navWrapper {
-        z-index: 1;
         background-color: rgb(245, 245, 245);
     }
 

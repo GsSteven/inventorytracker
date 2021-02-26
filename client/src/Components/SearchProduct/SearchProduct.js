@@ -12,7 +12,8 @@ class SearchProduct extends React.Component {
         super(props);
         this.state = {
             products: [],
-            searchQuery: ''
+            searchQuery: '',
+            error: false
         }
         this.getProducts = this.getProducts.bind(this);
         this.orderBy = this.orderBy.bind(this);
@@ -26,11 +27,18 @@ class SearchProduct extends React.Component {
     getProducts() {
         axios.get('/api/inventory')
             .then(response => {
-                if (!response || response.status !== 200) throw console.error('Error at getProducts');
-                else {
-                    this.setState({ products: response.data });
+                if (response.status === 200) {
+                    this.setState({
+                        products: response.data,
+                        error: false
+                    });
+                } else {
+                    this.setState({ error: true });
                 }
-            });
+            },
+                error => {
+                    this.setState({ error: true });
+                });
     }
 
     orderBy(e) {
@@ -38,11 +46,18 @@ class SearchProduct extends React.Component {
 
         axios.get('/api/inventory/orderBy', { params: { orderBy: toBeOrderedBy, searchQuery: this.state.searchQuery } })
             .then(response => {
-                if (!response || response.status !== 200) throw console.error('Error at orderBy method');
-                else {
-                    this.setState({ products: response.data });
+                if (response.status === 200) {
+                    this.setState({
+                        products: response.data,
+                        error: false
+                    });
+                } else {
+                    this.setState({ error: true });
                 }
-            });
+            },
+                error => {
+                    this.setState({ error: true });
+                });
     }
 
     handleChange(e) {
@@ -61,11 +76,19 @@ class SearchProduct extends React.Component {
     search() {
         axios.get('/api/inventory/search', { params: { searchQuery: this.state.searchQuery } })
             .then(response => {
-                if (!response || response.status !== 200) throw console.error('Error at orderBy method');
-                else {
-                    this.setState({ products: response.data });
+                if (response.status === 200) {
+                    this.setState({
+                        products: response.data,
+                        error: false
+                    });
                 }
-            });
+                else {
+                    this.setState({ error: true });
+                }
+            },
+                error => {
+                    this.setState({ error: true });
+                });
     }
 
 
@@ -94,6 +117,9 @@ class SearchProduct extends React.Component {
                     <input className="searchBar" type="text" name="search" placeholder="search by name" onChange={this.handleChange} />
                     <button className="searchButton" type="button" onClick={this.search}>search</button>
                 </div>
+                {this.state.error &&
+                    <h3 id="searchProductsError">Error fetching from database (try refreshing the page)</h3>
+                }
                 <table className="productsTable">
                     <thead>
                         <tr>

@@ -80,7 +80,7 @@
         height: 40px;
         width: 40px;
         position: relative;
-        top: 15%;
+        top: 0;
         left: 80%;
         cursor: pointer;
     }

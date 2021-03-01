@@ -36,7 +36,7 @@
 }
 
 #successMessage,
-#errorMessage {
+#addErrorMessage {
     width: 40%;
     margin: 0 auto;
     text-align: center;
@@ -49,6 +49,6 @@
     background-color: rgba(0, 83, 7, 0.4);
 }
 
-#errorMessage {
+#addErrorMessage {
     background-color: rgba(199, 7, 0, 0.4);
 }

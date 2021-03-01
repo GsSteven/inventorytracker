@@ -12,6 +12,26 @@
 
 }
 
+.productQuantity {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+}
+
+.checkButtons {
+    height: 15px;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+#checkOutProductButton {
+    justify-self: start;
+}
+
+#checkInProductButton {
+    justify-self: end;
+}
+
 .editProduct {
     height: 13px;
     cursor: pointer;

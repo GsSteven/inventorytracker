@@ -71,6 +71,8 @@ router.put('', (req, res) => {
 
 
 
+//orderBy & search Routes
+
 router.get('/orderBy', (req, res) => {
     const orderQuery = req.query.orderBy;
     const searchQuery = req.query.searchQuery;
@@ -98,6 +100,32 @@ router.get('/search', (req, res) => {
             if (err) throw err;
             res.status(200).send(sqlres);
         });
+});
+
+
+//checkIn & checkOut routes
+router.put('/checkIn', (req, res) => {
+    const data = req.body.data;
+    const id = data.id;
+    const checkInValue = data.checkInAmount;
+    connection.query(`UPDATE products SET quantity = quantity + ${checkInValue} WHERE id=${id}`
+        , (err, sqlres) => {
+            if (err) throw err;
+            res.status(200).send();
+        }
+    );
+});
+
+router.put('/checkOut', (req, res) => {
+    const data = req.body.data;
+    const id = data.id;
+    const checkOutValue = data.checkOutAmount;
+    connection.query(`UPDATE products SET quantity = quantity - ${checkOutValue} WHERE id=${id}`
+        , (err, sqlres) => {
+            if (err) throw err;
+            res.status(200).send();
+        }
+    );
 });
 
 

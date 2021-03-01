@@ -140,7 +140,7 @@ class AddNewProduct extends React.Component {
                     <h3 id="successMessage"><u>{this.state.submittedName}</u> has been added</h3>
                 }
                 {this.state.displayError &&
-                    <h3 id="errorMessage">Something went wrong and <u>{this.state.submittedName}</u> was not added.</h3>
+                    <h3 id="addErrorMessage">Something went wrong and <u>{this.state.submittedName}</u> was not added.</h3>
                 }
             </div>
         );

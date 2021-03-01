@@ -53,3 +53,30 @@ th img {
 .productsTable tbody tr:nth-child(odd){
     background-color: rgba(49, 104, 255, 0.4);
 }
+
+@media screen and (max-width: 1050px) {
+    .productsTable {
+        width: 100%;
+    }
+
+    .inputBox {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+    .searchBar,
+    .searchButton{
+        left: auto;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .productsTable {
+        border-left: none;
+        border-right: none;
+    }
+    .notes {
+        display: none;
+    }
+}

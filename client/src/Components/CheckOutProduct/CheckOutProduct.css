@@ -1,0 +1,15 @@
+.outEmph {
+    color: rgb(163, 0, 12);
+}
+
+#checkOutProductInput {
+    width: 75px;
+}
+
+#errorMessage {
+    background-color: rgba(163, 0, 12, .5);
+    width: 90%;
+    margin: 1em auto;
+    padding: .5em 0;
+    border-radius: 5px;
+}

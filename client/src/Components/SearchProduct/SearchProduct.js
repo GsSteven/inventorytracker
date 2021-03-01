@@ -129,7 +129,7 @@ class SearchProduct extends React.Component {
                             <th id="quantity" onClick={this.orderBy}>quantity<img src={upDownArrows} alt="sortBy" /></th>
                             <th id="location" onClick={this.orderBy}>location<img src={upDownArrows} alt="sortBy" /></th>
                             <th id="price" onClick={this.orderBy}>price<img src={upDownArrows} alt="sortBy" /></th>
-                            <th>notes</th>
+                            <th className="notes">notes</th>
                         </tr>
                     </thead>
                     <tbody>

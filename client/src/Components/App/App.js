@@ -53,7 +53,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="appWrapper">
         <header>
           <img src={logo} alt="logo" id="headerLogo" />
         </header>

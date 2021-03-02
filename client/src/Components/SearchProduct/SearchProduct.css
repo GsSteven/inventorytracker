@@ -2,6 +2,7 @@
     background-color: rgb(230, 230, 230);
     width: 100%;
     min-height: 100vh;
+    padding-bottom: 200px;
 }
 
 .inputBox {

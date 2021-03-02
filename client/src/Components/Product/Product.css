@@ -50,6 +50,17 @@
     cursor: pointer;
 }
 
+.trashButtonSection {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+#trashButton {
+    height: 18px;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
 @media screen and (max-width: 600px) {
     #typeEdit {
         width: 75px;

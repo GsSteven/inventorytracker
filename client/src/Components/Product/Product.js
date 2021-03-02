@@ -11,6 +11,8 @@ import checkButton from './../../images/checkButton.png';
 import xButton from './../../images/xButton.png';
 import addButton from './../../images/add.png';
 import subtractButton from './../../images/subtract.png';
+import trashButton from './../../images/trashButton.png';
+import DeleteProduct from '../DeleteProduct/DeleteProduct';
 
 
 
@@ -26,14 +28,20 @@ class Product extends React.Component {
             price: this.props.price,
             notes: this.props.notes,
             checkOutProduct: false,
-            checkInProduct: false
+            checkInProduct: false,
+            deleteProduct: false
         }
+        this.deleteProduct = this.deleteProduct.bind(this);
         this.checkOutProduct = this.checkOutProduct.bind(this);
         this.checkInProduct = this.checkInProduct.bind(this);
         this.editProduct = this.editProduct.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.cancelChange = this.cancelChange.bind(this);
         this.submitChange = this.submitChange.bind(this);
+    }
+
+    deleteProduct() {
+        this.state.deleteProduct ? this.setState({ deleteProduct: false }) : this.setState({ deleteProduct: true });
     }
 
     checkOutProduct() {
@@ -60,11 +68,11 @@ class Product extends React.Component {
             ReactDOM.render(
                 <>
                     <td>
-                        <img className="confirmDenyButtons" src={checkButton} alt="change" onClick={this.submitChange} />
+                        <img className="confirmDenyButtons" src={checkButton} alt="change" title="Confirm Changes" onClick={this.submitChange} />
                         <br />
                         {this.props.id}
                         <br />
-                        <img className="confirmDenyButtons" src={xButton} alt="dontChange" onClick={this.cancelChange} />
+                        <img className="confirmDenyButtons" src={xButton} alt="dontChange" title="Cancel Changes" onClick={this.cancelChange} />
 
                     </td>
                     <td><select name="typeEdit" id="typeEdit" defaultValue={this.state.type} onChange={this.handleChange}>
@@ -101,7 +109,7 @@ class Product extends React.Component {
         for (const param in this.state) {
             if (this.state[param] !== this.props[param]) {
                 //to filter out unneeded states
-                if (param !== 'checkOutProduct' && param !== 'checkInProduct') {
+                if (param !== 'checkOutProduct' && param !== 'checkInProduct' && param !== 'deleteProduct') {
                     payLoad[param] = this.state[param];
                 }
             }
@@ -138,6 +146,10 @@ class Product extends React.Component {
                 <td>{this.props.location}</td>
                 <td>${this.props.price}</td>
                 <td className="notes">{this.props.notes}</td>
+                <td className="trashButtonSection"><img id="trashButton" src={trashButton} alt={`Delete ${this.props.name}`} title={`Delete ${this.props.name}`} onClick={this.deleteProduct} /></td>
+                {this.state.deleteProduct &&
+                    <DeleteProduct id={this.props.id} name={this.props.name} close={this.deleteProduct} refresh={this.props.refresh} />
+                }
                 {this.state.checkOutProduct &&
                     <CheckOutProduct id={this.props.id} name={this.props.name} quantity={this.props.quantity} close={this.checkOutProduct} refresh={this.props.refresh} />
                 }

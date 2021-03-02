@@ -15,6 +15,7 @@ class AddNewProduct extends React.Component {
             displayError: false,
             displaySuccess: false
         }
+        this.handleKeyPress = this.handleKeyPress.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.submitProduct = this.submitProduct.bind(this);
         this.displayError = this.displayError.bind(this);
@@ -35,7 +36,9 @@ class AddNewProduct extends React.Component {
     }
 
     async submitProduct(e) {
-        e.preventDefault();
+        if (e) {
+            e.preventDefault();
+        }
 
         const payLoad = {
             name: this.state.name,

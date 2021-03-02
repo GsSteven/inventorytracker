@@ -69,6 +69,12 @@ router.put('', (req, res) => {
     res.status(200).send();
 });
 
+router.delete('', (req, res) => {
+    const idToDelete = req.query.id;
+    connection.query(`DELETE FROM products WHERE id=${idToDelete}`);
+    res.status(200).send();
+});
+
 
 
 //orderBy & search Routes

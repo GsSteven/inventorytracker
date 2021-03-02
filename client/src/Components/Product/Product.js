@@ -100,7 +100,9 @@ class Product extends React.Component {
         //if current state has been changed from prop add to payLoad
         for (const param in this.state) {
             if (this.state[param] !== this.props[param]) {
-                payLoad[param] = this.state[param];
+                if (param !== 'checkOutProduct' && param !== 'checkInProduct') {
+                    payLoad[param] = this.state[param];
+                }
             }
         }
 

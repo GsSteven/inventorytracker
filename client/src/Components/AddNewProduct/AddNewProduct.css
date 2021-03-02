@@ -26,13 +26,21 @@
     text-align: center;
 }
 
+#newTypeDiv {
+    text-align: center;
+}
+
 #quantity,
 #price {
     width: 100px;
 }
 
-#newTypeDiv {
+#notes {
     text-align: center;
+}
+
+#newProductSubmit {
+    margin-top: 1.5em;
 }
 
 #successMessage,
@@ -51,4 +59,10 @@
 
 #addErrorMessage {
     background-color: rgba(199, 7, 0, 0.4);
+}
+
+@media screen and (max-width: 1000px) {
+    #newProductForm {
+        width: 100%;
+    }
 }

@@ -49,3 +49,29 @@
     border: 1px solid black;
     cursor: pointer;
 }
+
+@media screen and (max-width: 600px) {
+    #typeEdit {
+        width: 75px;
+    }
+
+    #nameEdit {
+        width: 75px;
+    }
+
+    #quantityEdit {
+        width: 50px;
+    }
+
+    #locationEdit {
+        width: 50px;
+    }
+
+    #priceEdit {
+        width: 50px;
+    }
+
+    #notesEdit {
+        display: none;
+    }
+}

@@ -26,7 +26,7 @@
     font-size: 25px;
     font-family: 'Average Sans', sans-serif;
     font-weight: 600;
-    background-color: rgb(225, 225, 225);
+    background-color: rgb(200, 200, 200);
     color: black;
     margin: 0;
     cursor: pointer;
@@ -45,8 +45,8 @@
 .mobile1,
 .mobile2,
 .mobile3 {
-    width: 35px;
-    height: 6px;
+    width: 30px;
+    height: 5px;
     background-color: black;
     border-radius: 3px;
 }
@@ -62,7 +62,7 @@
         flex-direction: column;
         position: relative;
         right: 100%;
-        top: 17px;
+        top: 12px;
         background-color: rgb(245, 245, 245);
         border-bottom: 1px solid black;
         pointer-events: none;
@@ -71,16 +71,17 @@
 
     .navList li {
         padding: 1em 0;
+        border-bottom: 1px solid black;
     }
 
     .mobileOptions {
         display: grid;
         grid-template-rows: 1fr 1fr 1fr;
         align-items: center;
-        height: 40px;
-        width: 40px;
+        height: 30px;
+        width: 30px;
         position: relative;
-        top: 0;
+        top: 5px;
         left: 80%;
         cursor: pointer;
     }

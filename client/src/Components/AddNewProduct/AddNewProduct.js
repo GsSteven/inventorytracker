@@ -21,13 +21,22 @@ class AddNewProduct extends React.Component {
         this.displaySuccess = this.displaySuccess.bind(this);
     }
 
+    handleKeyPress(e) {
+        const charCode = e.charCode;
+        if (charCode === 13) {
+            this.submitProduct();
+        }
+    }
+
     handleChange(e) {
         const id = e.target.id;
         const value = e.target.value;
         this.setState({ [id]: value });
     }
 
-    async submitProduct() {
+    async submitProduct(e) {
+        e.preventDefault();
+
         const payLoad = {
             name: this.state.name,
             type: this.state.type,
@@ -106,11 +115,16 @@ class AddNewProduct extends React.Component {
         this.setState({ displaySuccess: true });
     }
 
+    componentDidMount() {
+        const nameInput = document.getElementById('name');
+        nameInput.focus();
+    }
+
     render() {
 
         return (
             <div className="addNewProductWrapper">
-                <div id="newProductForm">
+                <form id="newProductForm" onSubmit={this.submitProduct} onKeyPress={this.handleKeyPress}>
                     <label htmlFor="name">name</label>
                     <input type="text" name="name" id="name" required onChange={this.handleChange} />
                     <label htmlFor="type">type</label>
@@ -134,8 +148,8 @@ class AddNewProduct extends React.Component {
                     <input type="number" step="0.01" name="price" id="price" onChange={this.handleChange} />
                     <label htmlFor="notes">notes</label>
                     <textarea name="notes" id="notes" placeholder="Add notes here (400 character max)" cols="50" rows="5" maxLength="400" onChange={this.handleChange} />
-                    <button type="button" onClick={this.submitProduct}>Submit</button>
-                </div>
+                    <button type="sumbit" id="newProductSubmit">Submit</button>
+                </form>
                 {this.state.displaySuccess &&
                     <h3 id="successMessage"><u>{this.state.submittedName}</u> has been added</h3>
                 }

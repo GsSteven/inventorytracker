@@ -13,10 +13,19 @@ router.get('', (req, res) => {
 
 router.post('', (req, res) => {
     const newType = req.body.data;
-    connection.query(`INSERT INTO product_type (type) VALUES ('${newType}')`
-        , (err, sqlres) => {
+    //check if type already exists
+    connection.query(`SELECT id FROM product_type WHERE type='${newType}'`,
+        (err, sqlres) => {
             if (err) throw err;
-            res.status(200).send();
+            if (sqlres[0].id) {
+                res.status(200).send('type already exists');
+            } else {
+                connection.query(`INSERT INTO product_type (type) VALUES ('${newType}')`
+                    , (err, sqlres) => {
+                        if (err) throw err;
+                        res.status(200).send();
+                    });
+            }
         });
 });
 

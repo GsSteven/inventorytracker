@@ -29,14 +29,14 @@ router.post('', (req, res) => {
             , (err, sqlres) => {
                 if (err) throw err;
                 typeId = sqlres[0].id;
-                connection.query(`INSERT INTO products (name, type_id, quantity, location, price, notes) VALUES ('${name}', ${typeId}, ${quantity}, '${location}', ${price}, '${notes}')`
+                connection.query(`INSERT INTO products (name, type_id, quantity, location, price, notes) VALUES ('${name}', ${typeId}, ${quantity || 0}, '${location || 'N/A'}', ${price || 0.00}, '${notes}')`
                     , (err, sqlres) => {
                         if (err) throw err;
                         res.status(200).send();
                     });
             });
     } else {
-        connection.query(`INSERT INTO products (name, type_id, quantity, location, price, notes) VALUES ('${name}', ${typeId}, ${quantity}, '${location}', ${price}, '${notes}')`
+        connection.query(`INSERT INTO products (name, type_id, quantity, location, price, notes) VALUES ('${name}', ${typeId}, ${quantity || 0}, '${location || 'N/A'}', ${price || 0.00}, '${notes}')`
             , (err, sqlres) => {
                 if (err) throw err;
                 res.status(200).send();

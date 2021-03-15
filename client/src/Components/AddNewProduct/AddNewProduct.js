@@ -15,18 +15,10 @@ class AddNewProduct extends React.Component {
             displayError: false,
             displaySuccess: false
         }
-        this.handleKeyPress = this.handleKeyPress.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.submitProduct = this.submitProduct.bind(this);
         this.displayError = this.displayError.bind(this);
         this.displaySuccess = this.displaySuccess.bind(this);
-    }
-
-    handleKeyPress(e) {
-        const charCode = e.charCode;
-        if (charCode === 13) {
-            this.submitProduct();
-        }
     }
 
     handleChange(e) {
@@ -127,7 +119,7 @@ class AddNewProduct extends React.Component {
 
         return (
             <div className="addNewProductWrapper">
-                <form id="newProductForm" onSubmit={this.submitProduct} onKeyPress={this.handleKeyPress}>
+                <form id="newProductForm" onSubmit={this.submitProduct} autoComplete="off">
                     <label htmlFor="name">name</label>
                     <input type="text" name="name" id="name" required onChange={this.handleChange} />
                     <label htmlFor="type">type</label>

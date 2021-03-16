@@ -1,0 +1,19 @@
+.typeWrapper {
+    padding-top: 2em;
+    background-color: rgb(230, 230, 230);
+    width: 100%;
+    min-height: 100vh;
+}
+
+#deleteTypeForm {
+    background-color: rgb(220, 220, 220);
+    box-shadow: 3px 3px 6px #333333;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    margin: 0 auto;
+    padding: 2em 0;
+}

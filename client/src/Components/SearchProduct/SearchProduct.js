@@ -13,8 +13,10 @@ class SearchProduct extends React.Component {
         this.state = {
             products: [],
             searchQuery: '',
+            searchOrder: 'ASC',
             error: false
         }
+        this.changeSearchOrder = this.changeSearchOrder.bind(this);
         this.getProducts = this.getProducts.bind(this);
         this.orderBy = this.orderBy.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -22,7 +24,9 @@ class SearchProduct extends React.Component {
         this.handleKeyPress = this.handleKeyPress.bind(this);
     }
 
-
+    changeSearchOrder() {
+        this.state.searchOrder === 'ASC' ? this.setState({ searchOrder: 'DESC' }) : this.setState({ searchOrder: 'ASC' });
+    }
 
     getProducts() {
         axios.get('/api/inventory')
@@ -44,13 +48,21 @@ class SearchProduct extends React.Component {
     orderBy(e) {
         const toBeOrderedBy = e.target.id;
 
-        axios.get('/api/inventory/orderBy', { params: { orderBy: toBeOrderedBy, searchQuery: this.state.searchQuery } })
+        axios.get('/api/inventory/orderBy',
+            {
+                params: {
+                    orderBy: toBeOrderedBy,
+                    searchQuery: this.state.searchQuery,
+                    searchOrder: this.state.searchOrder
+                }
+            })
             .then(response => {
                 if (response.status === 200) {
                     this.setState({
                         products: response.data,
                         error: false
                     });
+                    this.changeSearchOrder();
                 } else {
                     this.setState({ error: true });
                 }

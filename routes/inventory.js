@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 const connection = require('./../connection');
+const mysqlTool = require('./../mysqlTool');
 
 
 
@@ -13,7 +14,7 @@ router.get('', (req, res) => {
         });
 });
 
-router.post('', (req, res) => {
+router.post('', async (req, res) => {
     const data = req.body.data;
     const name = data.name;
     const type = data.type;
@@ -25,26 +26,19 @@ router.post('', (req, res) => {
 
     //if product has type get type id before adding to products table
     if (type) {
-        connection.query(`SELECT id FROM product_type WHERE type = '${type}'`
-            , (err, sqlres) => {
-                if (err) throw err;
-                typeId = sqlres[0].id;
-                connection.query(`INSERT INTO products (name, type_id, quantity, location, price, notes) VALUES ('${name}', ${typeId}, ${quantity || 0}, '${location || 'N/A'}', ${price || 0.00}, '${notes}')`
-                    , (err, sqlres) => {
-                        if (err) throw err;
-                        res.status(200).send();
-                    });
-            });
-    } else {
-        connection.query(`INSERT INTO products (name, type_id, quantity, location, price, notes) VALUES ('${name}', ${typeId}, ${quantity || 0}, '${location || 'N/A'}', ${price || 0.00}, '${notes}')`
-            , (err, sqlres) => {
-                if (err) throw err;
-                res.status(200).send();
+        await mysqlTool.getTypeId(type)
+            .then(response => {
+                typeId = response
             });
     }
+    connection.query(`INSERT INTO products (name, type_id, quantity, location, price, notes) VALUES ('${name}', ${typeId}, ${quantity || 0}, '${location || 'N/A'}', ${price || 0.00}, '${notes}')`
+        , (err, sqlres) => {
+            if (err) throw err;
+            res.status(200).send();
+        });
 });
 
-router.put('', (req, res) => {
+router.put('', async (req, res) => {
     const data = req.body.data;
     const idToUpdate = data.id;
     const updates = data.toChange;
@@ -52,14 +46,13 @@ router.put('', (req, res) => {
     for (const update in updates) {
         //if data is 'type' get type id from product_type table
         if (update === 'type') {
-            connection.query(`SELECT id FROM product_type WHERE type = '${updates[update]}'`
+            await mysqlTool.getTypeId(updates[update])
+                .then(response => {
+                    typeId = response
+                });
+            connection.query(`UPDATE products SET ${update}_id=${typeId} WHERE id=${idToUpdate}`
                 , (err, sqlres) => {
                     if (err) throw err;
-                    typeId = sqlres[0].id;
-                    connection.query(`UPDATE products SET ${update}_id=${typeId} WHERE id=${idToUpdate}`
-                        , (err, sqlres) => {
-                            if (err) throw err;
-                        });
                 });
             //else update data by value in products table
         } else {
@@ -82,16 +75,17 @@ router.delete('', (req, res) => {
 router.get('/orderBy', (req, res) => {
     const orderQuery = req.query.orderBy;
     const searchQuery = req.query.searchQuery;
+    const searchOrder = req.query.searchOrder;
     //if there is a search query get products LIKE query
     if (searchQuery) {
-        connection.query(`SELECT p.id, pt.type AS "type", p.name, p.quantity, p.price, p.location, p.notes  FROM products p JOIN product_type pt ON pt.id = p.type_id WHERE name LIKE "%${searchQuery}%" ORDER BY ${orderQuery}`
+        connection.query(`SELECT p.id, pt.type AS "type", p.name, p.quantity, p.price, p.location, p.notes  FROM products p JOIN product_type pt ON pt.id = p.type_id WHERE name LIKE "%${searchQuery}%" ORDER BY ${orderQuery} ${searchOrder}`
             , (err, sqlres) => {
                 if (err) throw err;
                 res.status(200).send(sqlres);
             });
     } else {
         //order all products by order query
-        connection.query(`SELECT p.id, pt.type AS "type", p.name, p.quantity, p.price, p.location, p.notes  FROM products p JOIN product_type pt ON pt.id = p.type_id ORDER BY ${orderQuery}`
+        connection.query(`SELECT p.id, pt.type AS "type", p.name, p.quantity, p.price, p.location, p.notes  FROM products p JOIN product_type pt ON pt.id = p.type_id ORDER BY ${orderQuery} ${searchOrder}`
             , (err, sqlres) => {
                 if (err) throw err;
                 res.status(200).send(sqlres);

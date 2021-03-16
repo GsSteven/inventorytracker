@@ -6,7 +6,7 @@ class CheckInProduct extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            checkInValue: 0
+            checkInValue: 0,
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleKeyPress = this.handleKeyPress.bind(this);
@@ -38,8 +38,10 @@ class CheckInProduct extends React.Component {
                     }
                 })
                 .then(response => {
-                    this.props.refresh();
-                    this.props.close();
+                    if (response.status === 200) {
+                        this.props.updateQuantity('add', Number(this.state.checkInValue));
+                        this.props.close();
+                    }
                 });
         }
     }

@@ -42,8 +42,11 @@ class CheckOutProduct extends React.Component {
                     }
                 })
                 .then(response => {
-                    this.props.refresh();
-                    this.props.close();
+                    //if db updated, update display
+                    if (response.status === 200) {
+                        this.props.updateQuantity('subtract', Number(this.state.checkOutValue));
+                        this.props.close();
+                    }
                 });
         }
     }

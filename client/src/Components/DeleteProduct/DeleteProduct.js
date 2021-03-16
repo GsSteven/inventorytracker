@@ -12,9 +12,10 @@ class DeleteProduct extends React.Component {
     submit() {
         axios.delete('/api/inventory', { params: { id: this.props.id } })
             .then(response => {
-                console.log(response);
-                this.props.refresh();
-                this.props.close();
+                if (response.status === 200) {
+                    this.props.close();
+                    this.props.deleteSelf();
+                }
             },
                 error => {
                     console.error(error);

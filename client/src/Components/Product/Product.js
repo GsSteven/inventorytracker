@@ -31,6 +31,10 @@ class Product extends React.Component {
             checkInProduct: false,
             deleteProduct: false
         }
+        this.myRef = React.createRef();
+        this.updateQuantity = this.updateQuantity.bind(this);
+        this.updateDisplayData = this.updateDisplayData.bind(this);
+        this.deleteDisplayData = this.deleteDisplayData.bind(this);
         this.deleteProduct = this.deleteProduct.bind(this);
         this.checkOutProduct = this.checkOutProduct.bind(this);
         this.checkInProduct = this.checkInProduct.bind(this);
@@ -38,6 +42,28 @@ class Product extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.cancelChange = this.cancelChange.bind(this);
         this.submitChange = this.submitChange.bind(this);
+    }
+
+    updateQuantity(method, amount) {
+        //update without calling db
+        console.log(method, amount);
+        if (method === "add") {
+            this.setState({ quantity: this.state.quantity + amount });
+        } else {
+            this.setState({ quantity: this.state.quantity - amount });
+        }
+    }
+
+    updateDisplayData(dataObject) {
+        //update display without calling db
+        for (const data in dataObject) {
+            this.setState({ [data]: dataObject[data] });
+        }
+    }
+
+    deleteDisplayData() {
+        const currentProduct = this.myRef.current;
+        currentProduct.style.display = 'none';
     }
 
     deleteProduct() {
@@ -121,7 +147,8 @@ class Product extends React.Component {
                     //close edit
                     const openedEdit = document.getElementById(`${this.props.id}Edit`);
                     openedEdit.remove();
-                    this.props.refresh();
+                    //if db updated, update display
+                    this.updateDisplayData(payLoad);
                 }
             },
                 error => {
@@ -131,30 +158,30 @@ class Product extends React.Component {
 
     render() {
         return (
-            <tr className="productRow" id={this.props.id}>
+            <tr className="productRow" id={this.props.id} ref={this.myRef}>
                 <td className="dataId">
                     <img className="editProduct" src={wrenchIcon} alt="edit product" title={`Edit ${this.props.name}`} onClick={this.editProduct} />
                     {this.props.id}
                 </td>
-                <td>{this.props.type}</td>
-                <td>{this.props.name}</td>
+                <td>{this.state.type}</td>
+                <td>{this.state.name}</td>
                 <td className="productQuantity">
                     <img className="checkButtons" id="checkOutProductButton" src={subtractButton} alt="Check-out" title={`Check Out ${this.props.name}`} onClick={this.checkOutProduct} />
-                    {this.props.quantity}
+                    {this.state.quantity}
                     <img className="checkButtons" id="checkInProductButton" src={addButton} alt="Check-in" title={`Check In ${this.props.name}`} onClick={this.checkInProduct} />
                 </td>
-                <td>{this.props.location}</td>
-                <td>${this.props.price}</td>
+                <td>{this.state.location}</td>
+                <td>${this.state.price}</td>
                 <td className="notes">{this.props.notes}</td>
-                <td className="trashButtonSection"><img id="trashButton" src={trashButton} alt={`Delete ${this.props.name}`} title={`Delete ${this.props.name}`} onClick={this.deleteProduct} /></td>
+                <td className="trashButtonSection"><img id="trashButton" src={trashButton} alt={`Delete ${this.state.name}`} title={`Delete ${this.state.name}`} onClick={this.deleteProduct} /></td>
                 {this.state.deleteProduct &&
-                    <DeleteProduct id={this.props.id} name={this.props.name} close={this.deleteProduct} refresh={this.props.refresh} />
+                    <DeleteProduct id={this.props.id} name={this.props.name} close={this.deleteProduct} deleteSelf={this.deleteDisplayData} />
                 }
                 {this.state.checkOutProduct &&
-                    <CheckOutProduct id={this.props.id} name={this.props.name} quantity={this.props.quantity} close={this.checkOutProduct} refresh={this.props.refresh} />
+                    <CheckOutProduct id={this.props.id} name={this.props.name} quantity={this.props.quantity} close={this.checkOutProduct} updateQuantity={this.updateQuantity} />
                 }
                 {this.state.checkInProduct &&
-                    <CheckInProduct id={this.props.id} name={this.props.name} quantity={this.props.quantity} close={this.checkInProduct} refresh={this.props.refresh} />
+                    <CheckInProduct id={this.props.id} name={this.props.name} quantity={this.props.quantity} close={this.checkInProduct} updateQuantity={this.updateQuantity} />
                 }
             </tr>
         );

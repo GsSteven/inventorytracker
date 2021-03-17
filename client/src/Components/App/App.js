@@ -3,6 +3,7 @@ import axios from 'axios';
 import NavBar from './../NavBar/NavBar';
 import SearchProduct from './../SearchProduct/SearchProduct';
 import AddNewProduct from './../AddNewProduct/AddNewProduct';
+import EditType from '../EditType/EditType';
 import './App.css';
 
 //img imports
@@ -13,7 +14,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentPage: 'searchProducts',
+      currentPage: 'editType',
       types: []
     }
     this.getTypes = this.getTypes.bind(this);
@@ -42,6 +43,8 @@ class App extends React.Component {
         return <SearchProduct types={this.state.types} />
       case 'addNewProduct':
         return <AddNewProduct types={this.state.types} refreshTypes={this.getTypes} />
+      case 'editType':
+        return <EditType types={this.state.types} refreshTypes={this.getTypes} />
       default:
         console.error('Error at displayPage switch');
     }

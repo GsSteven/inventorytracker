@@ -7,7 +7,7 @@ const mysqlTool = require('./../mysqlTool');
 
 
 router.get('', (req, res) => {
-    connection.query('SELECT p.id, pt.type AS "type", p.name, p.quantity, p.price, p.location, p.notes  FROM products p JOIN product_type pt ON pt.id = p.type_id'
+    connection.query('SELECT p.id, pt.type AS "type", p.name, p.quantity, p.price, p.location, p.notes  FROM products p LEFT JOIN product_type pt ON pt.id = p.type_id'
         , (err, sqlres) => {
             if (err) throw err;
             res.status(200).send(sqlres);
@@ -22,7 +22,7 @@ router.post('', async (req, res) => {
     const location = data.location;
     const price = data.price;
     const notes = data.notes;
-    let typeId;
+    let typeId = null;
 
     //if product has type get type id before adding to products table
     if (type) {
@@ -78,14 +78,14 @@ router.get('/orderBy', (req, res) => {
     const searchOrder = req.query.searchOrder;
     //if there is a search query get products LIKE query
     if (searchQuery) {
-        connection.query(`SELECT p.id, pt.type AS "type", p.name, p.quantity, p.price, p.location, p.notes  FROM products p JOIN product_type pt ON pt.id = p.type_id WHERE name LIKE "%${searchQuery}%" ORDER BY ${orderQuery} ${searchOrder}`
+        connection.query(`SELECT p.id, pt.type AS "type", p.name, p.quantity, p.price, p.location, p.notes  FROM products p LEFT JOIN product_type pt ON pt.id = p.type_id WHERE name LIKE "%${searchQuery}%" ORDER BY ${orderQuery} ${searchOrder}`
             , (err, sqlres) => {
                 if (err) throw err;
                 res.status(200).send(sqlres);
             });
     } else {
         //order all products by order query
-        connection.query(`SELECT p.id, pt.type AS "type", p.name, p.quantity, p.price, p.location, p.notes  FROM products p JOIN product_type pt ON pt.id = p.type_id ORDER BY ${orderQuery} ${searchOrder}`
+        connection.query(`SELECT p.id, pt.type AS "type", p.name, p.quantity, p.price, p.location, p.notes  FROM products p LEFT JOIN product_type pt ON pt.id = p.type_id ORDER BY ${orderQuery} ${searchOrder}`
             , (err, sqlres) => {
                 if (err) throw err;
                 res.status(200).send(sqlres);
@@ -95,7 +95,7 @@ router.get('/orderBy', (req, res) => {
 
 router.get('/search', (req, res) => {
     const searchQuery = req.query.searchQuery;
-    connection.query(`SELECT p.id, pt.type AS "type", p.name, p.quantity, p.price, p.location, p.notes  FROM products p JOIN product_type pt ON pt.id = p.type_id WHERE p.name LIKE "%${searchQuery}%"`
+    connection.query(`SELECT p.id, pt.type AS "type", p.name, p.quantity, p.price, p.location, p.notes  FROM products p LEFT JOIN product_type pt ON pt.id = p.type_id WHERE p.name LIKE "%${searchQuery}%"`
         , (err, sqlres) => {
             if (err) throw err;
             res.status(200).send(sqlres);

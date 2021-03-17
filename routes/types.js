@@ -32,7 +32,16 @@ router.post('', (req, res) => {
 });
 
 router.put('', (req, res) => {
-
+    const data = req.body.data;
+    const typeToChange = data.typeToChange;
+    const changeTo = data.changeTo;
+    connection.query(`UPDATE product_type SET type = '${changeTo}' WHERE type = '${typeToChange}'`
+        , (err, sqlres) => {
+            if (err) {
+                res.status(400).send(err);
+            };
+            res.status(200).send();
+        });
 });
 
 router.delete('', async (req, res) => {

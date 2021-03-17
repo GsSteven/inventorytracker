@@ -7,6 +7,8 @@
 
 #newProductForm {
     background-color: rgb(220, 220, 220);
+    box-shadow: 3px 3px 6px #333333;
+    border: 1px solid black;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -43,8 +45,8 @@
     margin-top: 1.5em;
 }
 
-#successMessage,
-#addErrorMessage {
+.successMessage,
+.addErrorMessage {
     width: 40%;
     margin: 0 auto;
     text-align: center;
@@ -53,11 +55,11 @@
     border-bottom-right-radius: 5px;
 }
 
-#successMessage {
+.successMessage {
     background-color: rgba(0, 83, 7, 0.4);
 }
 
-#addErrorMessage {
+.addErrorMessage {
     background-color: rgba(199, 7, 0, 0.4);
 }
 

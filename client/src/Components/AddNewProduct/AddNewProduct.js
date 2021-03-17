@@ -59,7 +59,6 @@ class AddNewProduct extends React.Component {
         //submit payLoad then reset state and input areas
         axios.post('/api/inventory', { data: payLoad })
             .then(response => {
-                console.log(response);
                 if (response.status === 200) {
 
                     this.setState({
@@ -132,7 +131,7 @@ class AddNewProduct extends React.Component {
                         <div id="newTypeDiv">
                             <label htmlFor="newType">new type</label>
                             <br />
-                            <input type="text" name="newType" id="newType" onChange={this.handleChange} />
+                            <input type="text" name="newType" id="newType" onChange={this.handleChange} required />
                         </div>
                     }
                     <label htmlFor="quantity">quantity</label>
@@ -146,10 +145,10 @@ class AddNewProduct extends React.Component {
                     <button type="sumbit" id="newProductSubmit">Submit</button>
                 </form>
                 {this.state.displaySuccess &&
-                    <h3 id="successMessage"><u>{this.state.submittedName}</u> has been added</h3>
+                    <h3 className="successMessage"><u>{this.state.submittedName}</u> has been added</h3>
                 }
                 {this.state.displayError &&
-                    <h3 id="addErrorMessage">Something went wrong and <u>{this.state.submittedName}</u> was not added.</h3>
+                    <h3 className="addErrorMessage">Something went wrong and <u>{this.state.submittedName}</u> was not added.</h3>
                 }
             </div>
         );

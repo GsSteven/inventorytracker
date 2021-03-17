@@ -46,7 +46,6 @@ class Product extends React.Component {
 
     updateQuantity(method, amount) {
         //update without calling db
-        console.log(method, amount);
         if (method === "add") {
             this.setState({ quantity: this.state.quantity + amount });
         } else {
@@ -102,8 +101,8 @@ class Product extends React.Component {
 
                     </td>
                     <td><select name="typeEdit" id="typeEdit" defaultValue={this.state.type} onChange={this.handleChange}>
-                        {this.props.types}
                         <option value=""></option>
+                        {this.props.types}
                     </select>
                     </td>
                     <td><input type="text" defaultValue={this.state.name || undefined} name="nameEdit" id="nameEdit" onChange={this.handleChange} /></td>
@@ -178,10 +177,10 @@ class Product extends React.Component {
                     <DeleteProduct id={this.props.id} name={this.props.name} close={this.deleteProduct} deleteSelf={this.deleteDisplayData} />
                 }
                 {this.state.checkOutProduct &&
-                    <CheckOutProduct id={this.props.id} name={this.props.name} quantity={this.props.quantity} close={this.checkOutProduct} updateQuantity={this.updateQuantity} />
+                    <CheckOutProduct id={this.props.id} name={this.state.name} quantity={this.state.quantity} close={this.checkOutProduct} updateQuantity={this.updateQuantity} />
                 }
                 {this.state.checkInProduct &&
-                    <CheckInProduct id={this.props.id} name={this.props.name} quantity={this.props.quantity} close={this.checkInProduct} updateQuantity={this.updateQuantity} />
+                    <CheckInProduct id={this.props.id} name={this.state.name} quantity={this.state.quantity} close={this.checkInProduct} updateQuantity={this.updateQuantity} />
                 }
             </tr>
         );

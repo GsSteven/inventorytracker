@@ -57,7 +57,7 @@ class NavBar extends React.Component {
                 <ul className="navList">
                     <li id="addNewProduct" onClick={this.props.changePage}>Add New Product</li>
                     <li id="searchProducts" onClick={this.props.changePage}>Search Products</li>
-                    <li id="deleteType" onClick={this.props.changePage}>Delete Type</li>
+                    <li id="editType" onClick={this.props.changePage}>Edit Type</li>
                 </ul>
             </div>
         );

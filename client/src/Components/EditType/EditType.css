@@ -1,0 +1,39 @@
+.typeWrapper {
+    padding-top: 2em;
+    background-color: rgb(230, 230, 230);
+    width: 100%;
+    min-height: 100vh;
+}
+
+#deleteTypeForm,
+#changeTypeForm {
+    background-color: rgb(220, 220, 220);
+    box-shadow: 3px 3px 6px #333333;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    margin: 0 auto;
+    padding: 1.5em 0;
+}
+
+.typeWrapper label {
+    font-weight: 600;
+}
+
+.typeWrapper input,
+.typeWrapper select {
+    margin-bottom: 15px;
+}
+
+.typeWrapper h2 {
+    text-align: center;
+    margin-top: 0;
+}
+
+.typeWrapper h1 {
+    text-align: center;
+    margin: 1em 0;
+}

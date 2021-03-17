@@ -14,7 +14,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentPage: 'editType',
+      currentPage: 'searchProducts',
       types: []
     }
     this.getTypes = this.getTypes.bind(this);

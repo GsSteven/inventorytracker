@@ -5,8 +5,41 @@
     min-height: 100vh;
 }
 
+#editTypeNav {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    width: 50%;
+    margin: 0 auto 20px auto;
+    padding: 0;
+}
+
+#editTypeNav li {
+    padding: 10px 0;
+    font-size: 20px;
+    font-weight: 600;
+    border: 1px solid black;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    transition: .3s linear;
+}
+
+#addTypeNav:hover {
+    background-color: rgba(0, 83, 7, 0.4);
+}
+
+#changeTypeNav:hover {
+    background-color: rgba(22, 65, 122, 0.4);
+}
+
+#deleteTypeNav:hover {
+    background-color: rgba(199, 7, 0, 0.4);
+}
+
 #deleteTypeForm,
-#changeTypeForm {
+#changeTypeForm,
+#addTypeForm {
     background-color: rgb(220, 220, 220);
     box-shadow: 3px 3px 6px #333333;
     border: 1px solid black;
@@ -15,8 +48,26 @@
     justify-content: center;
     align-items: center;
     width: 40%;
+    min-height: 300px;
     margin: 0 auto;
     padding: 1.5em 0;
+}
+
+#addTypeForm {
+    background-color: rgba(0, 83, 7, 0.2);
+}
+
+#changeTypeForm {
+    background-color: rgba(22, 65, 122, 0.2);
+}
+
+#deleteTypeForm {
+    background-color: rgba(199, 7, 0, 0.2);
+}
+
+.typeWrapper h2 {
+    text-align: center;
+    margin-top: 0;
 }
 
 .typeWrapper label {
@@ -28,12 +79,33 @@
     margin-bottom: 15px;
 }
 
-.typeWrapper h2 {
-    text-align: center;
-    margin-top: 0;
+#addTypeForm button,
+#changeTypeForm button,
+#deleteTypeForm button {
+    width: 60px;
+    height: 30px;
 }
 
-.typeWrapper h1 {
-    text-align: center;
-    margin: 1em 0;
+
+@media screen and (max-width: 800px) {
+    #editTypeNav {
+        width: 100%;
+    }
+
+    #addTypeForm,
+    #changeTypeForm,
+    #deleteTypeForm {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    #addTypeForm,
+    #changeTypeForm,
+    #deleteTypeForm {
+        width: 100%;
+        box-shadow: none;
+        border-left: none;
+        border-right: none;
+    }
 }

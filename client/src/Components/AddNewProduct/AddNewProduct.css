@@ -46,7 +46,7 @@
 }
 
 .successMessage,
-.addErrorMessage {
+.errorMessage {
     width: 40%;
     margin: 0 auto;
     text-align: center;
@@ -59,12 +59,26 @@
     background-color: rgba(0, 83, 7, 0.4);
 }
 
-.addErrorMessage {
+.errorMessage {
     background-color: rgba(199, 7, 0, 0.4);
 }
 
 @media screen and (max-width: 1000px) {
     #newProductForm {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .successMessage,
+    .errorMessage {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .successMessage,
+    .errorMessage {
         width: 100%;
     }
 }

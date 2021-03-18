@@ -6,9 +6,12 @@ class EditType extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            addSuccess: false,
             changeSuccess: false,
             deleteSuccess: false,
-            addSuccess: false,
+            addError: false,
+            changeError: false,
+            deleteError: false,
             typeDisplay: 'addTypeNav'
         }
         this.addType = React.createRef();
@@ -48,7 +51,14 @@ class EditType extends React.Component {
                             <button type="submit">Add</button>
                         </form>
                         {this.state.addSuccess &&
-                            <h3 className="successMessage">{this.state.typeToAdd} has been added</h3>
+                            <h3 className="successMessage">
+                                <u>{this.state.typeToAdd}</u> has been added
+                            </h3>
+                        }
+                        {this.state.addError &&
+                            <h3 className="errorMessage">
+                                Something went wrong and <u>{this.state.typeToAdd}</u> was not added
+                            </h3>
                         }
                     </div>
                 );
@@ -74,7 +84,14 @@ class EditType extends React.Component {
                             <button type="submit">Change</button>
                         </form>
                         {this.state.changeSuccess &&
-                            <h3 className="successMessage">{this.state.typeToChange} is now {this.state.changeTo}</h3>
+                            <h3 className="successMessage">
+                                <u>{this.state.typeToChange}</u> is now <u>{this.state.changeTo}</u>
+                            </h3>
+                        }
+                        {this.state.changeError &&
+                            <h3 className="errorMessage">
+                                Something went wrong and <u>{this.state.typeToChange}</u> was not changed
+                            </h3>
                         }
                     </div>
                 );
@@ -91,7 +108,14 @@ class EditType extends React.Component {
                             <button type="submit">Delete</button>
                         </form>
                         {this.state.deleteSuccess &&
-                            <h3 className="successMessage">{this.state.typeToRemove} has been deleted</h3>
+                            <h3 className="successMessage">
+                                <u>{this.state.typeToRemove}</u> has been deleted
+                            </h3>
+                        }
+                        {this.state.deleteError &&
+                            <h3 className="errorMessage">
+                                Something went wrong and <u>{this.state.typeToDelete}</u> was not deleted
+                            </h3>
                         }
                     </div>
                 );
@@ -121,12 +145,19 @@ class EditType extends React.Component {
             axios.delete('/api/types', { params: { nameOfType: this.state.typeToRemove } })
                 .then(response => {
                     if (response.status === 200) {
-                        this.setState({ deleteSuccess: true });
+                        this.setState({
+                            deleteSuccess: true,
+                            deleteError: false
+                        });
                         this.props.refreshTypes();
                     }
                 },
                     error => {
-                        console.log(error);
+                        this.setState({
+                            deleteError: true,
+                            deleteSuccess: false
+                        });
+                        console.error(error);
                     });
         }
     }
@@ -141,12 +172,22 @@ class EditType extends React.Component {
         })
             .then(response => {
                 if (response.status === 200) {
-                    this.setState({ changeSuccess: true });
+                    this.setState({
+                        changeSuccess: true,
+                        changeError: false
+                    });
                     this.props.refreshTypes();
                     const newTypeInput = this.changeType.current;
                     newTypeInput.value = '';
                 }
-            });
+            },
+                error => {
+                    this.setState({
+                        changeError: true,
+                        changeSuccess: false
+                    });
+                    console.error(error);
+                });
     }
 
     submitAdd(e) {
@@ -156,12 +197,22 @@ class EditType extends React.Component {
         })
             .then(response => {
                 if (response.status === 200) {
-                    this.setState({ addSuccess: true })
+                    this.setState({
+                        addSuccess: true,
+                        addError: false
+                    });
                     this.props.refreshTypes();
                     const newType = this.addType.current;
                     newType.value = '';
                 }
-            })
+            },
+                error => {
+                    this.setState({
+                        addError: true,
+                        addSuccess: false
+                    });
+                    console.error(error);
+                });
 
     }
 

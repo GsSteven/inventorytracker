@@ -135,13 +135,13 @@ class SearchProduct extends React.Component {
                 <table className="productsTable">
                     <thead>
                         <tr>
-                            <th id="id" onClick={this.orderBy}>id<img src={upDownArrows} alt="sortBy" /></th>
-                            <th id="type" onClick={this.orderBy}>type<img src={upDownArrows} alt="sortBy" /></th>
-                            <th id="name" onClick={this.orderBy}>name<img src={upDownArrows} alt="sortBy" /></th>
-                            <th id="quantity" onClick={this.orderBy}>quantity<img src={upDownArrows} alt="sortBy" /></th>
-                            <th id="location" onClick={this.orderBy}>location<img src={upDownArrows} alt="sortBy" /></th>
-                            <th id="price" onClick={this.orderBy}>price<img src={upDownArrows} alt="sortBy" /></th>
-                            <th className="notes">notes</th>
+                            <th id="id" onClick={this.orderBy}>Id<img src={upDownArrows} alt="sortBy" /></th>
+                            <th id="type" onClick={this.orderBy}>Type<img src={upDownArrows} alt="sortBy" /></th>
+                            <th id="name" onClick={this.orderBy}>Name<img src={upDownArrows} alt="sortBy" /></th>
+                            <th id="quantity" onClick={this.orderBy}>Quantity<img src={upDownArrows} alt="sortBy" /></th>
+                            <th id="location" onClick={this.orderBy}>Location<img src={upDownArrows} alt="sortBy" /></th>
+                            <th id="price" onClick={this.orderBy}>Price<img src={upDownArrows} alt="sortBy" /></th>
+                            <th className="notes">Notes</th>
                         </tr>
                     </thead>
                     <tbody>

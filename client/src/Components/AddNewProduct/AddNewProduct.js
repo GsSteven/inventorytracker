@@ -119,9 +119,9 @@ class AddNewProduct extends React.Component {
         return (
             <div className="addNewProductWrapper">
                 <form id="newProductForm" onSubmit={this.submitProduct} autoComplete="off">
-                    <label htmlFor="name">name</label>
+                    <label htmlFor="name">Name</label>
                     <input type="text" name="name" id="name" required onChange={this.handleChange} />
-                    <label htmlFor="type">type</label>
+                    <label htmlFor="type">Type</label>
                     <select name="type" id="type" defaultValue="" onChange={this.handleChange}>
                         <option value="newType">New type +</option>
                         {this.props.types}
@@ -129,18 +129,18 @@ class AddNewProduct extends React.Component {
                     </select>
                     {this.state.type === "newType" &&
                         <div id="newTypeDiv">
-                            <label htmlFor="newType">new type</label>
+                            <label htmlFor="newType">New Type</label>
                             <br />
                             <input type="text" name="newType" id="newType" onChange={this.handleChange} required />
                         </div>
                     }
-                    <label htmlFor="quantity">quantity</label>
+                    <label htmlFor="quantity">Quantity</label>
                     <input type="number" name="quantity" id="quantity" onChange={this.handleChange} />
-                    <label htmlFor="location">location</label>
+                    <label htmlFor="location">Location</label>
                     <input type="text" name="location" id="location" onChange={this.handleChange} />
-                    <label htmlFor="price">price</label>
+                    <label htmlFor="price">Price</label>
                     <input type="number" step="0.01" name="price" id="price" onChange={this.handleChange} />
-                    <label htmlFor="notes">notes</label>
+                    <label htmlFor="notes">Notes</label>
                     <textarea name="notes" id="notes" placeholder="Add notes here (400 character max)" cols="50" rows="5" maxLength="400" onChange={this.handleChange} />
                     <button type="sumbit" id="newProductSubmit">Submit</button>
                 </form>

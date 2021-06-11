@@ -32,9 +32,8 @@ class App extends React.Component {
     this.setState({ types: typeElements });
   }
 
-  changePage(e) {
-    const navId = e.target.id;
-    this.setState({ currentPage: navId });
+  changePage(targetId) {
+    this.setState({ currentPage: targetId });
   }
 
   displayPage() {

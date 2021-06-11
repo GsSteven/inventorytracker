@@ -8,10 +8,20 @@ class NavBar extends React.Component {
         this.state = {
             clicked: false
         }
+        this.handleClick = this.handleClick.bind(this);
         this.expandNav = this.expandNav.bind(this);
     }
 
-    expandNav(e) {
+    handleClick(e) {
+        const currentId = e.target.id;
+        //if nav in mobile close nav on select
+        if (window.innerWidth < 1000) {
+            this.expandNav();
+        }
+        this.props.changePage(currentId);
+    }
+
+    expandNav() {
         const navList = document.querySelector('.navList');
         const line1 = document.querySelector('.mobile1');
         const line2 = document.querySelector('.mobile2');
@@ -55,9 +65,9 @@ class NavBar extends React.Component {
                     <div className="mobile3"></div>
                 </div>
                 <ul className="navList">
-                    <li id="addNewProduct" onClick={this.props.changePage}>Add New Product</li>
-                    <li id="searchProducts" onClick={this.props.changePage}>Search Products</li>
-                    <li id="editType" onClick={this.props.changePage}>Edit Type</li>
+                    <li id="addNewProduct" onClick={this.handleClick}>Add New Product</li>
+                    <li id="searchProducts" onClick={this.handleClick}>Search Products</li>
+                    <li id="editType" onClick={this.handleClick}>Edit Type</li>
                 </ul>
             </div>
         );

@@ -1,8 +1,7 @@
 .typeWrapper {
     padding-top: 2em;
-    background-color: rgb(230, 230, 230);
     width: 100%;
-    min-height: 100vh;
+    min-height: 100%;
 }
 
 #editTypeNav {

@@ -1,6 +1,8 @@
 .appWrapper {
   width: 100%;
   min-width: 440px;
+  background-color: rgb(230, 230, 230);
+  min-height: 100vh;
 }
 
 header {
